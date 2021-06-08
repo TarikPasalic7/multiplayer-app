@@ -1,11 +1,10 @@
-const { isObject } = require("util");
+const io=require("socket.io")(5000,{
+cors:{
+    origin:["http://localhost:3000"]
+},
 
-const app = require("express")();
-const http = require("http").createServer(app);
-const io=require("socket.io")(http);
+})
 
-
-http.listen(5000,()=>{
-
-    console.log("listen");
+io.on("connection",socket=>{
+    console.log("connected")
 })
