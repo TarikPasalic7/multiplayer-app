@@ -16,7 +16,7 @@ io.on('connection',socket=>{
   socket.on('message',payload=>{
 
     console.log('Message recieved on ',payload);
-    io.emit('message',payload);
+    io.emit('chat',payload);
   })
 
 })

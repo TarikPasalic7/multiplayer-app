@@ -6,15 +6,30 @@ import "./App.css"
 const SERVER = "http://localhost:7000";
 const socket = io(SERVER);
 	
-
+let list=[];
 function App() {
-  const [message,setMessage]= useState('')
+  
+  const [message,setMessage]= useState('');
+  const [chat,setChat] = useState([]);
+  const [change,setChange] =useState(0);
+ 
+useEffect(() => {
+  socket.on("chat",m=>{
+  
+console.log("message server",m)
+list.push(m);
+
+  })
+}, [change])
+
   const sendMessage =(e)=>{
 
     e.preventDefault();
     console.log(message);
-    socket.emit('message',{message})
+    socket.emit('message',`${message}`)
+  
     setMessage("");
+    setChange(0);
   }
 
 	return (
@@ -32,6 +47,11 @@ function App() {
 <button type='submit'>Send</button>
 
      </form>
+     
+     {list.map((data, index) => {
+      
+      return (<div key={index} >{data}</div> ) 
+    })}
       </div>
 		</div>
 	)
