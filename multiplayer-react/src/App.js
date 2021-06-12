@@ -10,7 +10,6 @@ let list=[];
 function App() {
   
   const [message,setMessage]= useState('');
-  const [chat,setChat] = useState([]);
   const [change,setChange] =useState(0);
  
 useEffect(() => {
@@ -22,37 +21,42 @@ list.push(m);
   })
 }, [change])
 
-  const sendMessage =(e)=>{
+  const draw=(e)=>{
 
-    e.preventDefault();
-    console.log(message);
-    socket.emit('message',`${message}`)
-  
-    setMessage("");
-    setChange(0);
+    let target=e.target;
+    console.log(e);
+    socket.emit('draw',"target");
+    
+
+  }
+
+  const drawing =(box)=>{
+box.style.backgroundColor="green";
   }
 
 	return (
 		<div className="App">
-      <div className="container">
-		 <h1>Chat</h1>
+     <div id="wrapper">
+      <canvas id="canvas" width="800" height="800"> </canvas>
+      <div id="controls">
+        <div id="widthControl" title="choose a line width">
+          <div class="widthExample"></div>
+          <div class="widthExample"></div>
+          <div class="widthExample"></div>
+          <div class="widthExample"></div>
+          <div class="widthExample"></div>
+        </div>
+        <div id="palette" title="choose a color"></div>
 
-     <form onSubmit={sendMessage}>
-   <input type="text" 
-   name="message"
-    placeholder="type message" 
-    value={message}
-    onChange={(e)=>{setMessage(e.target.value)}}
-    />
-<button type='submit'>Send</button>
+        <div id="clearBtn" title="clear the canvas">
+          <i class="fa fa-trash" aria-hidden="true"></i>
+        </div>
 
-     </form>
-     
-     {list.map((data, index) => {
-      
-      return (<div key={index} >{data}</div> ) 
-    })}
+        <div id="counterDiv">
+          <span id="counter">0</span> users <br />are online
+        </div>
       </div>
+    </div>
 		</div>
 	)
 }

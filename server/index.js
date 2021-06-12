@@ -13,10 +13,10 @@ io.on('connection',socket=>{
 
 
   console.log('connected');
-  socket.on('message',payload=>{
+  socket.on('draw',(target)=>{
 
-    console.log('Message recieved on ',payload);
-    io.emit('chat',payload);
+    console.log('target recieved on ',target);
+ 
   })
 
 })
