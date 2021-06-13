@@ -3,6 +3,7 @@
 import React, { useEffect,  useState } from "react"
 import io from "socket.io-client"
 import "./App.css"
+
 const SERVER = "http://localhost:7000";
 const socket = io(SERVER);
 let mousePressed = false;
@@ -145,7 +146,8 @@ function mousePos(e) {
 		<div className="App">
      <div id="wrapper">
        <div className="guessboard"></div>
-      <canvas id="canvas" onMouseDown={mousedwn} onMouseMove={mousemv} onMouseLeave={mouselv} onMouseUp={msup} width="1000" height="800"> </canvas>
+       <div className="container">  <canvas id="canvas" onMouseDown={mousedwn} onMouseMove={mousemv} onMouseLeave={mouselv} onMouseUp={msup} width="900" height="700"> </canvas></div>
+    
       <div id="controls">
         <div id="widthControl" title="choose a line width">
           <div class="widthExample"></div>
