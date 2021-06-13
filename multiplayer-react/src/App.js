@@ -24,32 +24,6 @@ useEffect(() => {
  canvas = document.getElementById("canvas");
  ctx = canvas.getContext("2d");
  createPalette();
- canvas.addEventListener("mousedown", (e) => {
-  mousePressed = true;
-  draw(e);
-});
-
-canvas.addEventListener("mousemove", (e) => {
-  if (mousePressed) {
-      draw(e);
-  }
-});
-
-canvas.addEventListener("mouseleave", () => {
-  lastPos = null;
-});
-
-document.addEventListener("mouseup", (e) => {
-  mousePressed = false;
-  lastPos = null;
-});
-
-document.getElementById("clearBtn").addEventListener("click", () => {
-  socket.emit("clearCanvas");
-});
-socket.on("clearCanvas", () => {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-});
 
 document.querySelectorAll(".colorSquare").forEach((square) => {
   square.addEventListener("click", () => {
@@ -75,6 +49,30 @@ socket.on("socketNumber", (number) => {
 });
 
 }, [])
+const mousedwn=(e)=>{
+  mousePressed = true;
+  draw(e);
+
+}
+const mousemv =(e)=>{
+  if (mousePressed) {
+    draw(e);
+}
+
+}
+const mouselv =()=>{
+  lastPos = null;
+}
+const msup =()=>{
+  mousePressed = false;
+  lastPos = null;
+}
+const clear =()=>{
+  socket.emit("clearCanvas");
+  socket.on("clearCanvas", () => {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+  });
+}
 
 const createPalette=()=> {
   const COLORS = [
@@ -146,7 +144,8 @@ function mousePos(e) {
 	return (
 		<div className="App">
      <div id="wrapper">
-      <canvas id="canvas" width="800" height="800"> </canvas>
+       <div className="guessboard"></div>
+      <canvas id="canvas" onMouseDown={mousedwn} onMouseMove={mousemv} onMouseLeave={mouselv} onMouseUp={msup} width="1000" height="800"> </canvas>
       <div id="controls">
         <div id="widthControl" title="choose a line width">
           <div class="widthExample"></div>
@@ -158,7 +157,7 @@ function mousePos(e) {
         <div id="palette" title="choose a color"></div>
 
         <div id="clearBtn" title="clear the canvas">
-          <i class="fa fa-trash" aria-hidden="true"></i>
+          <button onClick={clear}>Clear</button>
         </div>
 
         <div id="counterDiv">
