@@ -26,8 +26,8 @@ body {
   height: 600px;
   width: 350px;
   background-color: blanchedalmond;
-  display: flex;
-  float: left;
+  display: inline-block;
+  
   border:rgb(228, 224, 224) solid 1px;
   border-radius: 10px;
   margin-right: 150px;
@@ -150,4 +150,30 @@ h1 {
     text-align: right;
     position: absolute;
     bottom: 5px;
+}
+.guessbtn{
+ background-color: rgb(165, 72, 72);
+ margin-left: 10px;
+ width: 20%;
+ height: 30px;
+ border-radius: 10px;
+ color: white;
+ cursor: pointer;
+ letter-spacing: 3px;
+
+ 
+}
+.guessbtn:hover{
+  transform: scale(1.2);
+}
+.boardwraper{
+ display: inline-block;
+ text-align: center;
+
+}
+.wraper2{
+  display:flex;
+  margin: 20px 50px;
+  
+
 }

@@ -146,7 +146,16 @@ function mousePos(e) {
 	return (
 		<div className="App">
      <div id="wrapper">
-       <div className="guessboard"></div>
+      <div className="boardwraper">
+      <div className="guessboard">
+      </div>
+      <div className="wraper2">
+        <input type="text" placeholder="Guess" />
+      <button className="guessbtn" >GUESS</button>
+
+      </div>
+     
+       </div>
        <div className="container">  <canvas id="canvas" onMouseDown={mousedwn} onMouseMove={mousemv} onMouseLeave={mouselv} onMouseUp={msup} width="900" height="700"> </canvas></div>
     
       <div id="controls">
