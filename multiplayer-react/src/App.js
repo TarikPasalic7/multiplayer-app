@@ -70,10 +70,11 @@ const msup =()=>{
 }
 const clear =()=>{
   socket.emit("clearCanvas");
-  socket.on("clearCanvas", () => {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-  });
+  
 }
+socket.on("clearCanvas", () => {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+});
 
 const createPalette=()=> {
   const COLORS = [
