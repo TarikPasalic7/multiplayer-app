@@ -33,6 +33,7 @@ body {
   margin-right: 150px;
   margin-top: 30px;
   box-shadow: rgb(36, 35, 35) 10px 10px 6px;
+  overflow-y:scroll;
 }
 h1 {
     font-family: "Coming Soon", cursive;
@@ -170,10 +171,21 @@ h1 {
  display: inline-block;
  text-align: center;
 
+
+
 }
+
 .wraper2{
   display:flex;
   margin: 20px 50px;
+ 
   
 
+}
+
+.guesstxt{
+    background-color: rgb(103, 103, 213);
+    border-color: white;
+    border-radius: 4;
+    border: solid;
 }

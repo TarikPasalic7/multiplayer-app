@@ -12,16 +12,17 @@ let drawColor = "black";
 let lineWidth = 15;
 let canvas=null;
 let ctx=null;
-	
+let board=null;
+	let gs="";
 let list=[];
 function App() {
   
-  const [message,setMessage]= useState('');
+  const [guesstxt,setGuesstxt]= useState('');
   const [change,setChange] =useState(0);
 
  
 useEffect(() => {
-  
+  board =  document.getElementById("guessboard"); 
  canvas = document.getElementById("canvas");
  ctx = canvas.getContext("2d");
  createPalette();
@@ -34,6 +35,8 @@ document.querySelectorAll(".colorSquare").forEach((square) => {
       });
   });
 });
+
+
 
 document.querySelectorAll(".widthExample").forEach((ex) => {
   ex.addEventListener("click", () => {
@@ -50,6 +53,19 @@ socket.on("socketNumber", (number) => {
 });
 
 }, [])
+
+useEffect(() => {
+
+  socket.on("txt",(msg)=>{
+    const txt = document.createElement("div");
+   txt.innerHTML=msg;
+   txt.classList.add("guesstxt");
+   board.appendChild(txt);
+ console.log(msg)
+
+ })
+}, [guesstxt])
+
 const mousedwn=(e)=>{
   mousePressed = true;
   draw(e);
@@ -121,17 +137,28 @@ const createPalette=()=> {
     
 
   }
+  const guess=(e)=>{
+  
+  
+  socket.emit("guess",gs);
+  setGuesstxt("");
+  
+  
 
-  socket.on("drawing", (color, width, startPos, endPos) => {
-    ctx.beginPath();
-    ctx.strokeStyle = color;
-    ctx.lineWidth = width;
-    ctx.lineJoin = "round";
-    ctx.moveTo(...startPos);
-    ctx.lineTo(...endPos);
-    ctx.closePath();
-    ctx.stroke();
+
+  }
+
+ socket.on("drawing", (color, width, startPos, endPos) => {
+  ctx.beginPath();
+  ctx.strokeStyle = color;
+  ctx.lineWidth = width;
+  ctx.lineJoin = "round";
+  ctx.moveTo(...startPos);
+  ctx.lineTo(...endPos);
+  ctx.closePath();
+  ctx.stroke();
 });
+
 function mousePos(e) {
   const rect = canvas.getBoundingClientRect();
   return [
@@ -147,11 +174,11 @@ function mousePos(e) {
 		<div className="App">
      <div id="wrapper">
       <div className="boardwraper">
-      <div className="guessboard">
+      <div className="guessboard" id="guessboard">
       </div>
       <div className="wraper2">
-        <input type="text" placeholder="Guess" />
-      <button className="guessbtn" >GUESS</button>
+        <input type="text" placeholder="Guess"  onChange={(e)=>{gs=e.target.value;}} />
+      <button className="guessbtn" onClick={guess} >GUESS</button>
 
       </div>
      
@@ -160,11 +187,11 @@ function mousePos(e) {
     
       <div id="controls">
         <div id="widthControl" title="choose a line width">
-          <div class="widthExample"></div>
-          <div class="widthExample"></div>
-          <div class="widthExample"></div>
-          <div class="widthExample"></div>
-          <div class="widthExample"></div>
+          <div className="widthExample"></div>
+          <div className="widthExample"></div>
+          <div className="widthExample"></div>
+          <div className="widthExample"></div>
+          <div className="widthExample"></div>
         </div>
         <div id="palette" title="choose a color"></div>
 

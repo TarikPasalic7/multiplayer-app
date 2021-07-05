@@ -34,6 +34,12 @@ io.on("connect", socket => {
     socketNumber--;
     io.emit("socketNumber", socketNumber);
   });
+
+  socket.on("guess", (guesstxt) => {
+  
+    io.emit("txt", guesstxt);
+  });
+
 });
 
 
